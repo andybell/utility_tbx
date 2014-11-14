@@ -60,13 +60,13 @@ class group2gif(object):
 		    parameterType="Optional"
 		)
 
-		parameters = [group, make_gif, output_folder, gif_dur, gif_size]
+		parameters = [group, output_folder, make_gif, gif_dur, gif_size]
 		return parameters
 
 	def execute(self, parameters, messages):
 		group_para = parameters[0].valueAsText
-		gif_para = parameters[1].valueAsText
-		out_para = parameters[2].valueAsText
+		out_para = parameters[1].valueAsText
+		gif_para = parameters[2].valueAsText
 		gif_duration = parameters[3].valueAsText
 		gif_size = parameters[4].valueAsText
 
