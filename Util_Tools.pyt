@@ -84,7 +84,7 @@ class group2gif(object):
 		
 		
 		#initially turn off layers
-		layer_active = {} #dict to store inital visibility of layer. TODO: add snippit to turn layers back on.
+		layer_active = {} #dict to store initial visibility of layer. TODO: add snippet to turn layers back on.
 		for layer in group_layers:
 			layer_active[layer] = layer.visible
 			layer.visible = False
@@ -112,7 +112,10 @@ class group2gif(object):
 			arcpy.AddMessage(output)
 			layer.visible = False
 
+		#saves sequence as a GIF using images2gif.py and animated_gif.py
 		if gif_para == "true":
 			print "Saving GIF!!!"
 			gif_name = os.path.join(out_para, group_para + ".gif")
 			animated_gif.animated_gif(out_para, gif_name, gif_duration, gif_size)
+
+		#TODO clean up folder, add options for changing direction?, restore layer visibility
