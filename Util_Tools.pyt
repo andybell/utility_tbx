@@ -20,7 +20,7 @@ class group2gif(object):
 	def __init__(self):
 		self.label = "group2gif"
 		self.alias = "Group2GIF"
-		self.description = "Iterates over layers in a group and then exports them as sequential images"
+		self.description = "Iterates over layers in a group and then exports them as sequential images" #TODO: add more info about usage
 		self.canRunInBackground = False
 
 	def getParameterInfo(self):
@@ -84,10 +84,11 @@ class group2gif(object):
 		
 		
 		#initially turn off layers
-		layer_active = {} #dict to store initial visibility of layer. TODO: add snippet to turn layers back on.
+		layer_active = {} # dict to store initial visibility of layer.
 		for layer in group_layers:
 			layer_active[layer] = layer.visible
 			layer.visible = False
+			#TODO add functionality to add layer name to map using arpy.mapping with {bind}
 		arcpy.RefreshTOC()
 		arcpy.RefreshActiveView()
 		
@@ -126,4 +127,4 @@ class group2gif(object):
 			gif_name = os.path.join(out_para, group_para + ".gif")
 			animated_gif.animated_gif(out_para, gif_name, gif_duration, gif_size)
 
-		#TODO clean up folder, add options for changing direction?, restore layer visibility
+		#TODO clean up folder, add options for changing direction?
