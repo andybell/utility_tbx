@@ -112,6 +112,14 @@ class group2gif(object):
 			arcpy.AddMessage(output)
 			layer.visible = False
 
+		#Turn layers back on
+		for layer in group_layers:
+			layer.visible = layer_active[layer]
+
+		#refresh view
+		arcpy.RefreshTOC()
+		arcpy.RefreshActiveView()
+
 		#saves sequence as a GIF using images2gif.py and animated_gif.py
 		if gif_para == "true":
 			print "Saving GIF!!!"
