@@ -7,6 +7,7 @@ import os
 import arcpy
 import animated_gif
 
+
 class Toolbox(object):
 	def __init__(self):
 		self.label = "Util_Tools"
@@ -71,8 +72,7 @@ class group2gif(object):
 		gif_size = parameters[4].valueAsText
 
 		IMXD = arcpy.mapping.MapDocument("CURRENT") # set current mxd
-		
-		
+
 		#get list of layers in group
 		group_layers = []		
 		for layer in arcpy.mapping.ListLayers(IMXD):
