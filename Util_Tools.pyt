@@ -148,7 +148,7 @@ class BatchSymbology(object):
 
 	def getParameterInfo(self):
 
-		fcList = arcpy.Parameter(displayName="Input Features", name="fcList", datatype="GPFeatureLayer",
+		fcList = arcpy.Parameter(displayName="Input Features", name="fcList", datatype="GPLayer",
 		                         parameterType="Required", multiValue=True)
 
 		symbology = arcpy.Parameter(displayName="Symbology Layer", name="symbology", datatype="GPLayer",
