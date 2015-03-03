@@ -14,12 +14,12 @@ class Toolbox(object):
 		self.alias = "Util_Tools"
 
 		#list of tool classes associated with the toolbox
-		self.tools = [group2gif]
+		self.tools = [Group2Gif, BatchSymbology]
 		
 
-class group2gif(object):
+class Group2Gif(object):
 	def __init__(self):
-		self.label = "group2gif"
+		self.label = "Group2Gif"
 		self.alias = "Group2GIF"
 		self.description = "Iterates over layers in a group and then exports them as sequential images" # TODO: add more info about usage
 		self.canRunInBackground = False
@@ -166,5 +166,5 @@ class BatchSymbology(object):
 
 		# Process: Apply Symbology From Layer
 		for feature in features_to_symbolize:
-			arcpy.AddMessage("Symbolizing: %s" % feature.name)
+			arcpy.AddMessage("Symbolizing: %s" % feature)
 			# arcpy.ApplySymbologyFromLayer_management(feature, symbology_layer)
