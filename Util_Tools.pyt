@@ -167,4 +167,4 @@ class BatchSymbology(object):
 		# Process: Apply Symbology From Layer
 		for feature in features_to_symbolize:
 			arcpy.AddMessage("Symbolizing: %s" % feature)
-			# arcpy.ApplySymbologyFromLayer_management(feature, symbology_layer)
+			arcpy.ApplySymbologyFromLayer_management(feature, symbology_layer)
