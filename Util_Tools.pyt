@@ -157,12 +157,14 @@ class BatchSymbology(object):
 		parameters = [fcList, symbology]
 		return parameters
 
+	# TODO: add checks to make sure that all feature layers are the same type as the layer symbology
+
 	def execute(self, parameters, messages):
 		features_to_symbolize = parameters[0].value.exportToString()
 		features_to_symbolize = features_to_symbolize.split(";") # splits multiple features that are separated by ";"
 		symbology_layer = parameters[1].valueAsText
 
-		arcpy.AddMessage(symbology_layer)
+		arcpy.AddMessage("Template symbology: %s" % symbology_layer)
 
 		# Process: Apply Symbology From Layer
 		for feature in features_to_symbolize:
