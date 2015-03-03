@@ -139,3 +139,32 @@ class group2gif(object):
 		# TODO clean up folder, add options for changing direction?
 
 
+class BatchSymbology(object):
+	def __init__(self):
+		self.label = "BatchSymbology"
+		self.alias = "BatchSymbology"
+		self.description = "Applies the same symbology to a list of features"
+		self.canRunInBackground = False
+
+	def getParameterInfo(self):
+
+		fcList = arcpy.Parameter(displayName="Input Features", name="fcList", datatype="GPFeatureLayer",
+		                         parameterType="Required", multiValue=True)
+
+		symbology = arcpy.Parameter(displayName="Symbology Layer", name="symbology", datatype="GPLayer",
+		                         parameterType="Required")
+
+		parameters = [fcList, symbology]
+		return parameters
+
+	def execute(self, parameters, messages):
+		features_to_symbolize = parameters[0].value.exportToString()
+		features_to_symbolize = features_to_symbolize.split(";") # splits multiple features that are separated by ";"
+		symbology_layer = parameters[1].valueAsText
+
+		arcpy.AddMessage(symbology_layer)
+
+		# Process: Apply Symbology From Layer
+		for feature in features_to_symbolize:
+			arcpy.AddMessage("Symbolizing: %s" % feature.name)
+			# arcpy.ApplySymbologyFromLayer_management(feature, symbology_layer)
