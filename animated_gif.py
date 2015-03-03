@@ -25,7 +25,7 @@ def animated_gif(folder_with_images, gif_filename, loop_duration, size):
 		im.thumbnail(dim, Image.ANTIALIAS)
 
 	output_file = os.path.join(folder_with_images, gif_filename)   # path for output file
-	writeGif(output_file, images, png_time, repeat=True, dither=False, nq=10)  # writes out GIF
+	writeGif(output_file, images, png_time)  # writes out GIF
 
 if __name__ == '__main__':
 	animated_gif()
