@@ -21,7 +21,7 @@ class group2gif(object):
 	def __init__(self):
 		self.label = "group2gif"
 		self.alias = "Group2GIF"
-		self.description = "Iterates over layers in a group and then exports them as sequential images" #TODO: add more info about usage
+		self.description = "Iterates over layers in a group and then exports them as sequential images" # TODO: add more info about usage
 		self.canRunInBackground = False
 
 	def getParameterInfo(self):
@@ -73,7 +73,7 @@ class group2gif(object):
 
 		IMXD = arcpy.mapping.MapDocument("CURRENT") # set current mxd
 
-		#get list of layers in group
+		# get list of layers in group
 		group_layers = []		
 		for layer in arcpy.mapping.ListLayers(IMXD):
 			if layer.name == group_para:
@@ -81,18 +81,16 @@ class group2gif(object):
 				for subLayer in layer:
 					arcpy.AddMessage(subLayer)
 					group_layers.append(subLayer)
-		
-		
-		#initially turn off layers
+
+		# initially turn off layers
 		layer_active = {} # dict to store initial visibility of layer.
 		for layer in group_layers:
 			layer_active[layer] = layer.visible
 			layer.visible = False
-			#TODO add functionality to add layer name to map using arpy.mapping with {bind}
 		arcpy.RefreshTOC()
 		arcpy.RefreshActiveView()
 		
-		#iterate over layers in group, turn them on, save as image, then turn off, and repeat
+		# iterate over layers in group, turn them on, save as image, then turn off, and repeat
 		counter = 0
 		
 		for layer in group_layers:
@@ -100,31 +98,44 @@ class group2gif(object):
 			arcpy.RefreshTOC()
 			arcpy.RefreshActiveView()
 			counter = counter + 1
+
+			# looks for {bind} in any text boxes and will replace it with layer name
+			for elm in arcpy.mapping.ListLayoutElements(IMXD, "TEXT_ELEMENT"):
+				if elm.text == "{bind}":
+					elm.text = layer.name
 			
-			#output location
+			# output location
 			output = os.path.join(out_para, group_para +"_" + str(counter) + ".png")
 			arcpy.AddMessage(output)
-			
-			
-			#save to png
+
+			# save to png
 			arcpy.AddMessage(IMXD)
 			arcpy.mapping.ExportToPNG(IMXD, output)
 			
 			arcpy.AddMessage(output)
+
+			# get ready for next layer
 			layer.visible = False
 
-		#Turn layers back on
+			# revert text box back to bind for next layer
+			for elm in arcpy.mapping.ListLayoutElements(IMXD, "TEXT_ELEMENT"):
+				if elm.text == layer.name:
+					elm.text = "{bind}"
+
+		# Turn layers back on
 		for layer in group_layers:
 			layer.visible = layer_active[layer]
 
-		#refresh view
+		# refresh view
 		arcpy.RefreshTOC()
 		arcpy.RefreshActiveView()
 
-		#saves sequence as a GIF using images2gif.py and animated_gif.py
+		# saves sequence as a GIF using images2gif.py and animated_gif.py
 		if gif_para == "true":
 			print "Saving GIF!!!"
 			gif_name = os.path.join(out_para, group_para + ".gif")
 			animated_gif.animated_gif(out_para, gif_name, gif_duration, gif_size)
 
-		#TODO clean up folder, add options for changing direction?
+		# TODO clean up folder, add options for changing direction?
+
+
