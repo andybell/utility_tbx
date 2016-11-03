@@ -105,7 +105,10 @@ class Group2Gif(object):
 					elm.text = layer.name
 			
 			# output location
-			output = os.path.join(out_para, group_para +"_" + str(counter) + ".png")
+			l_name = layer.name
+			name = os.path.splitext(l_name)[0] # removes extension
+			
+			output = os.path.join(out_para, group_para +"_" + name + ".png")
 			arcpy.AddMessage(output)
 
 			# save to png
