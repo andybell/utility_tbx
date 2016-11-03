@@ -5,7 +5,7 @@
 #--------------------------------
 import os
 import arcpy
-import animated_gif
+#import animated_gif
 
 
 class Toolbox(object):
@@ -134,7 +134,7 @@ class Group2Gif(object):
 		if gif_para == "true":
 			print "Saving GIF!!!"
 			gif_name = os.path.join(out_para, group_para + ".gif")
-			animated_gif.animated_gif(out_para, gif_name, gif_duration, gif_size)
+			#animated_gif.animated_gif(out_para, gif_name, gif_duration, gif_size)
 
 		# TODO clean up folder, add options for changing direction?
 
